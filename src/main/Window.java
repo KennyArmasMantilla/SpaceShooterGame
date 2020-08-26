@@ -3,16 +3,23 @@ package main;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Koala
  */
-public class Window extends JFrame{
+public class Window extends JFrame implements Runnable{
 
     public static final int WIDTH=800, HEIGHT = 600;
     private Canvas canvas;
+    
+    //Hilo principal del juego, para la logica del juego.
+    private Thread thread;
+    private boolean running =false;
+    
     
     
     public Window(){
@@ -39,7 +46,36 @@ public class Window extends JFrame{
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new Window();
+        new Window().start();
+    }
+
+    //Generado por runnable.
+    @Override
+    public void run() {
+        
+        while(running){
+            
+            
+        }
+        
+        stop();
     }
     
+    //Metodos para uniciar y detener el hilo principal
+    private void start(){
+        thread = new Thread();
+        running = true;
+        thread.start();
+        
+    }
+    
+    private void stop(){
+        try {
+            thread.join();
+            running=false;
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }
