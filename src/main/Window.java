@@ -2,6 +2,7 @@ package main;
 
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -26,6 +27,14 @@ public class Window extends JFrame implements Runnable{
     //Para dibujar
     private BufferStrategy bs;
     private Graphics g;
+    
+    //Fotogramas por segundo
+    private final int FPS = 60;
+    private double TARGETTIME = 1000000000/FPS; //tiempo requerido para aumentar un fotograma, tiempo objtivo en nano segundos
+    private double delta = 0; //Almacena temporalmente el tiempo que vaya pasando.
+    private int AVERGAREFPS=FPS; //Fotogramas por segundo promedio 
+    
+    
     
     public Window(){
         setTitle("Space Game Shooter. Kenny Armas");
@@ -61,7 +70,7 @@ public class Window extends JFrame implements Runnable{
         bs = canvas.getBufferStrategy();
         
         if(bs == null){
-            canvas.createBufferStrategy(5);//El 3 es un numero de buffers.
+            canvas.createBufferStrategy(3);//El 3 es un numero de buffers.
             return ;
         }
         g = bs.getDrawGraphics();
@@ -69,7 +78,8 @@ public class Window extends JFrame implements Runnable{
         g.clearRect(0, 0, WIDTH, HEIGHT);
         
         g.drawRect(x,0, 100, 100);
-        
+        g.setColor(Color.BLACK);
+        g.drawString(""+AVERGAREFPS, 10, 10);
         
         //-------------------------Fin del dibujo---------------------------
         g.dispose();
@@ -79,10 +89,40 @@ public class Window extends JFrame implements Runnable{
     //Generado por runnable.
     @Override
     public void run() {
-//        System.out.println(running);
+        //System.out.println(running);
+        //Implemando las variables para restingrir el ciclo y que corra a 60fps
+        long now =0;//Registro del tiempo.
+        long lastTime = System.nanoTime();//Dar la hora actual del sistemas en nanosegundos
+        
+        //Pasa ver por pantalla los fotogramas, tiempo de ejecucion.
+        int frames = 0;
+        long time=0;
+        
+        
+    
         while(running){
-            update();
-            draw();
+            
+            now = System.nanoTime();
+            delta+=(now-lastTime)/TARGETTIME;
+            time+=(now-lastTime);
+            lastTime= now;
+            if(delta>=1){
+                update();
+                draw();
+                delta--;
+                frames ++;
+                //System.out.println(frames);
+            }
+            
+            if(time>=1000000000){
+                AVERGAREFPS = frames;
+                frames=0;
+                time=0;
+            }
+            
+            
+            /*update();
+            draw();*/
         }
         
         stop();
