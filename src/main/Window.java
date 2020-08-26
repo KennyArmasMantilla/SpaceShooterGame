@@ -3,6 +3,8 @@ package main;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -21,6 +23,9 @@ public class Window extends JFrame implements Runnable{
     private boolean running =false;
     
     
+    //Para dibujar
+    private BufferStrategy bs;
+    private Graphics g;
     
     public Window(){
         setTitle("Space Game Shooter. Kenny Armas");
@@ -37,10 +42,7 @@ public class Window extends JFrame implements Runnable{
         canvas.setFocusable(true);//Permite recibir entradas por parte del teclado.
         
         add(canvas);
-        
-    
-    
-    
+
     }
 
 
@@ -49,13 +51,38 @@ public class Window extends JFrame implements Runnable{
         new Window().start();
     }
 
+    //mover
+    int x=0;
+    private void update(){
+        x++;
+    }
+    
+    private void draw(){
+        bs = canvas.getBufferStrategy();
+        
+        if(bs == null){
+            canvas.createBufferStrategy(5);//El 3 es un numero de buffers.
+            return ;
+        }
+        g = bs.getDrawGraphics();
+        //-------------------------Inicio del dibujo------------------------
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        
+        g.drawRect(x,0, 100, 100);
+        
+        
+        //-------------------------Fin del dibujo---------------------------
+        g.dispose();
+        bs.show();
+    }
+    
     //Generado por runnable.
     @Override
     public void run() {
-        
+//        System.out.println(running);
         while(running){
-            
-            
+            update();
+            draw();
         }
         
         stop();
@@ -63,10 +90,9 @@ public class Window extends JFrame implements Runnable{
     
     //Metodos para uniciar y detener el hilo principal
     private void start(){
-        thread = new Thread();
-        running = true;
+        thread = new Thread(this);
         thread.start();
-        
+        running = true;
     }
     
     private void stop(){
