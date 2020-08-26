@@ -1,6 +1,8 @@
 package main;
 
 
+import java.awt.Canvas;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 
 /**
@@ -10,7 +12,7 @@ import javax.swing.JFrame;
 public class Window extends JFrame{
 
     public static final int WIDTH=800, HEIGHT = 600;
-    
+    private Canvas canvas;
     
     
     public Window(){
@@ -19,10 +21,19 @@ public class Window extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//La ventana cierre cuando presionamos en X
         setResizable(false);//Para no redimensionar la ventana.
         setLocationRelativeTo(null);
-        
-        
-        
         setVisible(true);
+        canvas = new Canvas();
+
+        canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        canvas.setMaximumSize(new Dimension(WIDTH,HEIGHT));
+        canvas.setMinimumSize(new Dimension(WIDTH,HEIGHT));
+        canvas.setFocusable(true);//Permite recibir entradas por parte del teclado.
+        
+        add(canvas);
+        
+    
+    
+    
     }
 
 
