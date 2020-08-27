@@ -10,6 +10,7 @@ import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import states.GameState;
 
 /**
  *
@@ -35,6 +36,8 @@ public class Window extends JFrame implements Runnable{
     private double delta = 0; //Almacena temporalmente el tiempo que vaya pasando.
     private int AVERGAREFPS=FPS; //Fotogramas por segundo promedio 
     
+    //Gamestate
+    private GameState gameState;
     
     
     public Window(){
@@ -63,7 +66,7 @@ public class Window extends JFrame implements Runnable{
 
     //mover
     private void update(){
-        
+        gameState.update();
     }
     
     private void draw(){
@@ -77,9 +80,9 @@ public class Window extends JFrame implements Runnable{
         //-------------------------Inicio del dibujo------------------------
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
-        g.drawImage(Assets.player, 100, 100, null);
+//        g.drawImage(Assets.player, 100, 100, null);
         
-        
+        gameState.draw(g);
         
         
         g.drawString(""+AVERGAREFPS, 10, 10);
@@ -91,6 +94,7 @@ public class Window extends JFrame implements Runnable{
     //para inicializar los componentes que necesitemos
     private void init(){
         Assets.init();
+        gameState = new GameState();
     }
     
     
