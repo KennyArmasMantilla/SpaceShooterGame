@@ -1,6 +1,7 @@
 package main;
 
 
+import graphics.Assets;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -61,9 +62,8 @@ public class Window extends JFrame implements Runnable{
     }
 
     //mover
-    int x=0;
     private void update(){
-        x++;
+        
     }
     
     private void draw(){
@@ -75,16 +75,29 @@ public class Window extends JFrame implements Runnable{
         }
         g = bs.getDrawGraphics();
         //-------------------------Inicio del dibujo------------------------
-        g.clearRect(0, 0, WIDTH, HEIGHT);
-        
-        g.drawRect(x,0, 100, 100);
         g.setColor(Color.BLACK);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(Assets.player, 100, 100, null);
+        
+        
+        
+        
         g.drawString(""+AVERGAREFPS, 10, 10);
         
         //-------------------------Fin del dibujo---------------------------
         g.dispose();
         bs.show();
     }
+    //para inicializar los componentes que necesitemos
+    private void init(){
+        Assets.init();
+    }
+    
+    
+    
+    
+    
+    
     
     //Generado por runnable.
     @Override
@@ -98,6 +111,8 @@ public class Window extends JFrame implements Runnable{
         int frames = 0;
         long time=0;
         
+        
+        init();
         
     
         while(running){
