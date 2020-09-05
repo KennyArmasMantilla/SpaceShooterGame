@@ -2,6 +2,7 @@ package main;
 
 
 import graphics.Assets;
+import input.KeyBoard;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -40,7 +41,12 @@ public class Window extends JFrame implements Runnable{
     private GameState gameState;
     
     
+    //Ingreso por teclado KeyBoard
+    private KeyBoard keyBoard;
+    
     public Window(){
+        
+        //Inizializacion
         setTitle("Space Game Shooter. Kenny Armas");
         setSize(WIDTH,HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//La ventana cierre cuando presionamos en X
@@ -48,6 +54,7 @@ public class Window extends JFrame implements Runnable{
         setLocationRelativeTo(null);
         setVisible(true);
         canvas = new Canvas();
+        keyBoard = new KeyBoard();
 
         canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         canvas.setMaximumSize(new Dimension(WIDTH,HEIGHT));
@@ -55,6 +62,7 @@ public class Window extends JFrame implements Runnable{
         canvas.setFocusable(true);//Permite recibir entradas por parte del teclado.
         
         add(canvas);
+        canvas.addKeyListener(keyBoard);//Agregand el keyboard al canvas.
 
     }
 
@@ -66,6 +74,7 @@ public class Window extends JFrame implements Runnable{
 
     //mover
     private void update(){
+        keyBoard.update();
         gameState.update();
     }
     
@@ -84,7 +93,7 @@ public class Window extends JFrame implements Runnable{
         
         gameState.draw(g);
         
-        
+        g.setColor(Color.WHITE);
         g.drawString(""+AVERGAREFPS, 10, 10);
         
         //-------------------------Fin del dibujo---------------------------

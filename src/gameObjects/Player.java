@@ -1,6 +1,7 @@
 
 package gameObjects;
 
+import input.KeyBoard;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import math.Vector2D;
@@ -17,6 +18,10 @@ public class Player extends GameObject{
 
     @Override
     public void update() {
+        if(KeyBoard.RIGHT){
+            position.setX(position.getX()+1);
+        }
+            
     }
 
     @Override
