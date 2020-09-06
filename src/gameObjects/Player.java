@@ -20,7 +20,8 @@ public class Player extends MovingObject{
     private Vector2D heading; //Representa hacia donde esta mirando la nave
     private Vector2D acceleration;//Acelerar la nave.... Viene a ser el acmbio con respecto al tiempo.
     private final double ACC=0.08;//Representa cuanto queremos que acelere la nave
-     
+    private final double DELTAANGLE =0.1;
+    
     public Player(Vector2D position, Vector2D velocity,double maxVel, BufferedImage texture) {
         super(position, velocity, maxVel, texture);
         heading= new Vector2D(0,1);
@@ -33,10 +34,10 @@ public class Player extends MovingObject{
     public void update() {    
         
         if(KeyBoard.RIGHT){
-            angle+= Math.PI/20;
+            angle+= DELTAANGLE;
         }
         if(KeyBoard.LEFT){
-            angle-= Math.PI/20;
+            angle-= DELTAANGLE;
         }
         //ACELERADO Y FRENADO
         if(KeyBoard.UP){
@@ -45,7 +46,7 @@ public class Player extends MovingObject{
         }else{
             if(velocity.getMagnitud() !=0)
             {
-                acceleration= (velocity.scale(-1).normalize()).scale(ACC);
+                acceleration= (velocity.scale(-1).normalize()).scale(ACC/2);
             }
         }
         
