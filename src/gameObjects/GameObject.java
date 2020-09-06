@@ -8,6 +8,8 @@ import math.Vector2D;
  *
  * @author Koala
  */
+//Represemta todos los objetos en el juego. 
+
 
 //Aca vamos almacenar la posicion y textura de la imagen
 public abstract class GameObject {
