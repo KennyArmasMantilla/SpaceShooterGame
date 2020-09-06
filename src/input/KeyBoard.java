@@ -38,6 +38,7 @@ public class KeyBoard  implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
 //        System.out.println(e.getKeyCode());
+        
         keys[e.getKeyCode()]=true;
 
     }
