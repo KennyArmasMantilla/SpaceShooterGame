@@ -116,7 +116,7 @@ public class Player extends MovingObject{
     public void draw(Graphics g) {
         Graphics2D g2d=(Graphics2D)g;
         at=AffineTransform.getTranslateInstance(position.getX(), position.getY());
-        at.rotate(angle,Assets.player.getWidth()/2, Assets.player.getHeight()/2);
+        at.rotate(angle,width/2, height/2);
         g2d.drawImage(Assets.player, at, null);
         
     }
