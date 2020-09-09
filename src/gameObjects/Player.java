@@ -106,9 +106,7 @@ public class Player extends MovingObject{
             }
         }
        
-        
-
-        
+               
         
         System.out.println("Ancho de la ventana: "+742);
         System.out.println("Posicion X:"+position.getX());

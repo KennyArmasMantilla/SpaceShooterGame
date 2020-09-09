@@ -15,7 +15,7 @@ public class KeyBoard  implements KeyListener{
     
     private boolean[] keys= new boolean[256];
     
-    public static boolean UP, LEFT, RIGHT, DOWN, W,A,S,D;
+    public static boolean UP, LEFT, RIGHT, DOWN, W,A,S,D,SHOOT;
     
     
     public KeyBoard(){
@@ -27,6 +27,7 @@ public class KeyBoard  implements KeyListener{
         A= false;
         S=false;
         D=false;
+        SHOOT=false;
         
     }
 
@@ -37,6 +38,7 @@ public class KeyBoard  implements KeyListener{
         LEFT = keys[KeyEvent.VK_LEFT];
         RIGHT = keys[KeyEvent.VK_RIGHT];
         DOWN = keys[KeyEvent.VK_DOWN];
+        SHOOT=keys[KeyEvent.VK_SPACE];
         
         //LETRAS
         W = keys[KeyEvent.VK_W];
