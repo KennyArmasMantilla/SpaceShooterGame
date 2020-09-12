@@ -1,6 +1,7 @@
 package main;
 
 
+import gameObjects.Constants;
 import graphics.Assets;
 import input.KeyBoard;
 import java.awt.Canvas;
@@ -12,14 +13,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import states.GameState;
-
 /**
  *
  * @author Koala
  */
 public class Window extends JFrame implements Runnable{
 
-    public static final int WIDTH=800, HEIGHT = 600;
+   
     private Canvas canvas;
     
     //Hilo principal del juego, para la logica del juego.
@@ -48,7 +48,7 @@ public class Window extends JFrame implements Runnable{
         
         //Inizializacion
         setTitle("Space Game Shooter. Kenny Armas");
-        setSize(WIDTH,HEIGHT);
+        setSize(Constants.WIDTH,Constants.HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//La ventana cierre cuando presionamos en X
         setResizable(false);//Para no redimensionar la ventana.
         setLocationRelativeTo(null);
@@ -56,9 +56,9 @@ public class Window extends JFrame implements Runnable{
         canvas = new Canvas();
         keyBoard = new KeyBoard();
 
-        canvas.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        canvas.setMaximumSize(new Dimension(WIDTH,HEIGHT));
-        canvas.setMinimumSize(new Dimension(WIDTH,HEIGHT));
+        canvas.setPreferredSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
+        canvas.setMaximumSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
+        canvas.setMinimumSize(new Dimension(Constants.WIDTH,Constants.HEIGHT));
         canvas.setFocusable(true);//Permite recibir entradas por parte del teclado.
         
         add(canvas);
@@ -88,7 +88,7 @@ public class Window extends JFrame implements Runnable{
         g = bs.getDrawGraphics();
         //-------------------------Inicio del dibujo------------------------
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
 //        g.drawImage(Assets.player, 100, 100, null);
         
         gameState.draw(g);

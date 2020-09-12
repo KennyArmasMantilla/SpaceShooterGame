@@ -21,57 +21,53 @@ public class Player extends MovingObject{
     
     private Vector2D heading; //Representa hacia donde esta mirando la nave
     private Vector2D acceleration;//Acelerar la nave.... Viene a ser el acmbio con respecto al tiempo.
-    private final double ACC=0.08;//Representa cuanto queremos que acelere la nave
-    private final double DELTAANGLE =0.1;
-    private Window window;
-    private GameState gameState;
+    
+    
+    
     
     //effects
     private boolean accelerating = false;
     
     //Velocidad de las balas
-    private long time, lastTime;
+    private Chronometer fireRate;
+    
     
     public Player(Vector2D position, Vector2D velocity,double maxVel, BufferedImage texture, GameState gameState) {
-        super(position, velocity, maxVel, texture);
-        this.gameState=gameState;
+        super(position, velocity, maxVel, texture, gameState);
+        
         heading= new Vector2D(0,1);
         acceleration = new Vector2D();
-        time=0;
-        lastTime=System.currentTimeMillis();
+        fireRate= new Chronometer();
     }
 
    
     @Override
     public void update() {    
         
-        time += System.currentTimeMillis() - lastTime;
-        lastTime = System.currentTimeMillis();
         
-        if(KeyBoard.SHOOT && time > 100){
+        if(KeyBoard.SHOOT && !fireRate.isRunning()){
             gameState.getMovingObjects().add(0,new Laser
                 (getCenter().add(heading.scale(width)),
-                        heading, 10, angle, Assets.laserRed));
-                    
-            time=0;
+                        heading, 10, angle, Assets.laserRed, gameState));
+            fireRate.run(Constants.FIRERATE);
         }
         
         
         if(KeyBoard.RIGHT){
-            angle+= DELTAANGLE;
+            angle+= Constants.DELTAANGLE;
         }
         if(KeyBoard.LEFT){
-            angle-= DELTAANGLE;
+            angle-= Constants.DELTAANGLE;
         }
         //ACELERADO Y FRENADO
         if(KeyBoard.UP){
-            acceleration = heading.scale(ACC);
+            acceleration = heading.scale(Constants.ACC);
             accelerating=true;
             System.out.println("aceleracion: "+acceleration);
         }else{
             if(velocity.getMagnitud() !=0)
             {
-                acceleration= (velocity.scale(-1).normalize()).scale(ACC/2);
+                acceleration= (velocity.scale(-1).normalize()).scale(Constants.ACC/2);
             }
             accelerating=false;
         }
@@ -125,7 +121,7 @@ public class Player extends MovingObject{
             }
         }
        
-               
+        fireRate.update();
         
         System.out.println("Ancho de la ventana: "+742);
         System.out.println("Posicion X:"+position.getX());

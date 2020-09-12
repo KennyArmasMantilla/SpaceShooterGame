@@ -4,6 +4,8 @@ import gameObjects.MovingObject;
 import gameObjects.Player;
 import graphics.Assets;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 import math.Vector2D;
 
@@ -35,7 +37,8 @@ public class GameState {
     
     public void draw(Graphics g){
         
-        //player.draw(g);
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         for(int i=0; i<movingObjects.size();i++){
             movingObjects.get(i).draw(g);
         }

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import math.Vector2D;
+import states.GameState;
 
 /**
  *
@@ -12,8 +13,8 @@ import math.Vector2D;
  */
 public class Laser extends MovingObject{
 
-    public Laser(Vector2D position, Vector2D velocity, double maxVel,double angle,BufferedImage texture) {
-        super(position, velocity, maxVel, texture);
+    public Laser(Vector2D position, Vector2D velocity, double maxVel,double angle,BufferedImage texture, GameState gameState ) {
+        super(position, velocity, maxVel, texture, gameState);
         this.angle=angle;
         this.velocity = velocity.scale(maxVel);
     }
@@ -22,6 +23,13 @@ public class Laser extends MovingObject{
     public void update() {
 
         position=position.add(velocity);
+        //ara detener el dibujo de los lasers, y no vayan hacia mas alla de la pantalla
+        if(position.getX() <0 || position.getX() > Constants.WIDTH ||
+                position.getY() < 0 || position.getY()> Constants.HEIGHT){
+            
+            gameState.getMovingObjects().remove(this);
+        }
+        
 
     }
 
