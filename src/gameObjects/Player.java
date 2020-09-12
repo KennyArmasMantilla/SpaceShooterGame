@@ -153,7 +153,7 @@ public class Player extends MovingObject{
         
         at.rotate(angle,width/2, height/2);
         
-        g2d.drawImage(Assets.player, at, null);
+        g2d.drawImage(texture, at, null);
         
     }
     
