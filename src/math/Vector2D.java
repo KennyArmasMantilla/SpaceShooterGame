@@ -65,6 +65,12 @@ public class Vector2D {
         
         return new Vector2D(x/magnitude, y/magnitude);
     }
+
+    //Distancia entre el objeto
+    public Vector2D subtracc(Vector2D v){
+        return new Vector2D(x-v.getX(), y- v.getY());
+    }
+
     
     public Vector2D(int i, int i0, BufferedImage player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

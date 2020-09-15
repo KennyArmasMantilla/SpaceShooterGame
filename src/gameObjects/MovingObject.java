@@ -7,6 +7,7 @@ package gameObjects;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import math.Vector2D;
 import states.GameState;
 
@@ -37,5 +38,55 @@ public abstract class MovingObject extends GameObject{
         angle=0;
         
     }
+    
+    //Logica para las coliciones
+    protected void collidesWith(){
+        //Referencia del Arreglo de objetos movibles
+        ArrayList<MovingObject> movingObjects = gameState.getMovingObjects();
+        
+        for(int i=0; i< movingObjects.size(); i++){
+            
+            MovingObject m = movingObjects.get(i);
+            
+            //Para evitar colisicion conmigo mismo
+            if(m.equals(this)){
+                continue;
+            }
+            
+            //Distancia entre el objeto
+            double distance = m.getCenter().subtracc(getCenter()).getMagnitud();
+       
+            if(distance<m.width/2 +width/2 && movingObjects.contains(this)){
+                objectCollision(m, this);
+            }
+        
+        
+        }
+     }
+    
+    //no va a ser el caso que siempre se destruya
+    //que debe hacer en caso de los objetos colisionen
+    private void objectCollision(MovingObject a, MovingObject b){
+        //siempre y cuando ninguno sea meteoro lo eliminamos
+        if(!(a instanceof Meteor && b instanceof Meteor)){
+            a.Destroy();
+            b.Destroy();
+        }
+    }
+    
+    
+    
+    //elimina el objeto del arreglo de objetos movibles
+    protected void Destroy(){
+        gameState.getMovingObjects().remove(this);
+    }
+    
+    //Para todos poder obtener el centro.
+    protected Vector2D getCenter(){
+        
+        return new Vector2D(position.getX()+ width/2, position.getY()+height/2);
+    
+    }
+    
     
 }

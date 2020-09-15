@@ -122,6 +122,8 @@ public class Player extends MovingObject{
         }
        
         fireRate.update();
+        collidesWith();
+        
         
         System.out.println("Ancho de la ventana: "+742);
         System.out.println("Posicion X:"+position.getX());
@@ -156,13 +158,5 @@ public class Player extends MovingObject{
         g2d.drawImage(texture, at, null);
         
     }
-    
-    public Vector2D getCenter(){
         
-        return new Vector2D(position.getX()+ width/2, position.getY()+height/2);
-    
-    }
-    
-    
-    
 }

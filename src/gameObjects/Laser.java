@@ -26,11 +26,10 @@ public class Laser extends MovingObject{
         //ara detener el dibujo de los lasers, y no vayan hacia mas alla de la pantalla
         if(position.getX() <0 || position.getX() > Constants.WIDTH ||
                 position.getY() < 0 || position.getY()> Constants.HEIGHT){
-            
-            gameState.getMovingObjects().remove(this);
+                Destroy();
         }
+        collidesWith();
         
-
     }
 
     @Override
@@ -43,6 +42,10 @@ public class Laser extends MovingObject{
         g2d.drawImage(texture, at, null);
         
 
+    }
+    @Override
+    public Vector2D getCenter(){
+        return new Vector2D(position.getX()+ width/2, position.getY()+width/2);
     }
     
     

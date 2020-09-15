@@ -37,24 +37,74 @@ public class GameState {
     
     }
     
+    //Dividir los Meteoros
+    public void divideMeteor(Meteor meteor){
+        
+        Size size = meteor.getSize();
+        
+        BufferedImage[] textures = size.textures;
+        
+        Size newSize = null;
+        
+        switch(size){
+            case BIG_BROWN:
+                newSize = Size.MED_BROWN;
+                break;
+                
+            case MED_BROWN:
+                newSize = Size.SMALL_BROWN;
+                break;
+            
+            case SMALL_BROWN:
+                newSize = Size.TINY_BROWN;
+                break;
+            
+            case BIG_GRAY:
+                newSize = Size.MED_GRAY;
+                break;
+                
+            case MED_GRAY:
+                newSize = Size.SMALL_GRAY;
+                break;
+            
+            case SMALL_GRAY:
+                newSize = Size.TINY_GRAY;
+                break;
+                
+            default:
+                return;
+        }
+        
+        //Agregar los meteoros
+        for(int i=0; i<size.quantity;i++){
+        
+            movingObjects.add(new Meteor(
+                    meteor.getPosition(),
+                    new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
+                    Constants.METEOR_VEL*Math.random()+1,
+                    textures[(int)(Math.random()*textures.length)],
+                    this,
+                    newSize));
+        
+        }
+        
+        
+        
+    }
+    
+
+
+
     
     //Para iniciar oleadas de meteoros
     private void startWave(){
         double x,y;
         for(int i = 0; i<meteors; i++){
             //posiciones aleatorios
-//            x= i%2==0 ? Math.random()*Constants.WIDTH : 0;
-//            y= i%2==0 ? 0: Math.random()*Constants.HEIGHT;            
-
-            for (int j=0; j<meteors+1; j++){
-
-            //posiciones aleatorios
             x= i%2==0 ? Math.random()*Constants.WIDTH : 0;
-            y= i%2==0 ? 0: Math.random()*Constants.HEIGHT;
+            y= i%2==0 ? 0: Math.random()*Constants.HEIGHT;            
                 
-                if(j%2==0){
-                    BufferedImage texture = Assets.bigsBrown[(int)(Math.random()*Assets.bigsBrown.length)];
-            
+            BufferedImage texture = Assets.bigsBrown[(int)(Math.random()*Assets.bigsBrown.length)];
                     movingObjects.add(new Meteor(
                     new Vector2D(x,y),
                     new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
@@ -62,22 +112,20 @@ public class GameState {
                     texture,
                     this,
                     Size.BIG_BROWN));
-                }
-                else{
-                    BufferedImage texture = Assets.bigsGrey[(int)(Math.random()*Assets.bigsGrey.length)];
-            
+                    
+            BufferedImage texture2 = Assets.bigsGrey[(int)(Math.random()*Assets.bigsBrown.length)];
                     movingObjects.add(new Meteor(
                     new Vector2D(x,y),
                     new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
                     Constants.METEOR_VEL*Math.random()+1,
-                    texture,
+                    texture2,
                     this,
                     Size.BIG_GRAY));
-                }
+                    
             }
-        }
-        
-        meteors++;
+
+        meteors++;        
+
         
     }
     
