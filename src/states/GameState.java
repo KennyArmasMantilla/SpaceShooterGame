@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import math.Vector2D;
 
+//
+
 /**
  *
  * @author Koala
@@ -40,19 +42,39 @@ public class GameState {
     private void startWave(){
         double x,y;
         for(int i = 0; i<meteors; i++){
-            
+            //posiciones aleatorios
+//            x= i%2==0 ? Math.random()*Constants.WIDTH : 0;
+//            y= i%2==0 ? 0: Math.random()*Constants.HEIGHT;            
+
+            for (int j=0; j<meteors+1; j++){
+
             //posiciones aleatorios
             x= i%2==0 ? Math.random()*Constants.WIDTH : 0;
             y= i%2==0 ? 0: Math.random()*Constants.HEIGHT;
-            BufferedImage texture = Assets.bigsBrown[(int)(Math.random()*Assets.bigsBrown.length)];
+                
+                if(j%2==0){
+                    BufferedImage texture = Assets.bigsBrown[(int)(Math.random()*Assets.bigsBrown.length)];
             
-            movingObjects.add(new Meteor(
+                    movingObjects.add(new Meteor(
                     new Vector2D(x,y),
                     new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
                     Constants.METEOR_VEL*Math.random()+1,
                     texture,
                     this,
                     Size.BIG_BROWN));
+                }
+                else{
+                    BufferedImage texture = Assets.bigsGrey[(int)(Math.random()*Assets.bigsGrey.length)];
+            
+                    movingObjects.add(new Meteor(
+                    new Vector2D(x,y),
+                    new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
+                    Constants.METEOR_VEL*Math.random()+1,
+                    texture,
+                    this,
+                    Size.BIG_GRAY));
+                }
+            }
         }
         
         meteors++;
