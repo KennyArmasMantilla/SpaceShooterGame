@@ -22,6 +22,9 @@ public class Meteor extends MovingObject{
     public Meteor(Vector2D position, Vector2D velocity, double maxVel, BufferedImage texture, GameState gameState, Size size) {
         super(position, velocity, maxVel, texture, gameState);
         this.size=size;
+        
+        //aumentando velocidad del meteoro
+        this.velocity = velocity.scale(maxVel);
     }
 
     @Override
@@ -30,16 +33,16 @@ public class Meteor extends MovingObject{
         
         //Para que no Salga del cuadro de dibujo.
         if(position.getX()>Constants.WIDTH){
-            position.setX(0);
+            position.setX(-width);
         }
         if(position.getY()>Constants.HEIGHT){
-            position.setY(0);
+            position.setY(-height);
         }
         
-        if(position.getX()<0){
+        if(position.getX()< -width){
             position.setX(Constants.WIDTH);
         }
-        if(position.getY()<0){
+        if(position.getY()< -height){
             position.setY(Constants.HEIGHT);
         }
         
@@ -74,7 +77,12 @@ public class Meteor extends MovingObject{
         
         angle+= Constants.DELTAANGLE;
         
-        
+    }
+    
+    @Override
+    public void Destroy(){
+        gameState.divideMeteor(this);
+        super.Destroy();
     }
 
     @Override
