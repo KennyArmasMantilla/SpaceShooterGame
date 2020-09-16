@@ -69,6 +69,9 @@ public abstract class MovingObject extends GameObject{
     private void objectCollision(MovingObject a, MovingObject b){
         //siempre y cuando ninguno sea meteoro lo eliminamos
         if(!(a instanceof Meteor && b instanceof Meteor)){
+            //para las explosionces
+            gameState.playExplosion(getCenter());
+            
             a.Destroy();
             b.Destroy();
         }

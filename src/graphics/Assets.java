@@ -16,7 +16,7 @@ public class Assets {
     //lasers
     public static BufferedImage laserBlue,laserGreen,laserRed;
     
-    //Meteoros
+    //---------------------Meteoros------------------
     //Marrones
     public static BufferedImage[] bigsBrown = new BufferedImage[4];
     public static BufferedImage[] medsBrown = new BufferedImage[2];
@@ -29,6 +29,8 @@ public class Assets {
     public static BufferedImage[] smallsGrey = new BufferedImage[2];
     public static BufferedImage[] tiniesGrey= new BufferedImage[2];
     
+    //----------------Explosiones--------------------------
+    public static BufferedImage[] exp = new BufferedImage[9];
     
     
     public static void init(){
@@ -78,7 +80,10 @@ public class Assets {
             tiniesGrey[i]=Loader.ImageLoader("/meteoros/Grey_tiny"+(i+1)+".png");
         }
         
-        
+        //-------------explosiones---------------
+        for(int i = 0; i<exp.length; i++){
+            exp[i]=Loader.ImageLoader("/explosion/exp"+(i+1)+".png");
+        }
         
     }
 }

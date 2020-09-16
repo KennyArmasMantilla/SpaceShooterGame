@@ -5,6 +5,7 @@ import gameObjects.Meteor;
 import gameObjects.MovingObject;
 import gameObjects.Player;
 import gameObjects.Size;
+import graphics.Animation;
 import graphics.Assets;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import math.Vector2D;
 
-//
+
 
 /**
  *
@@ -26,6 +27,9 @@ public class GameState {
     private ArrayList<MovingObject> movingObjects = new ArrayList<MovingObject>();
     //Meteoros
     private int meteors;
+    
+    //Animation
+    private ArrayList<Animation> explotions = new ArrayList<Animation>();
     
     
     public GameState(){
@@ -93,8 +97,6 @@ public class GameState {
     }
     
 
-
-
     
     //Para iniciar oleadas de meteoros
     private void startWave(){
@@ -136,6 +138,15 @@ public class GameState {
             movingObjects.get(i).update();
         }
         
+        //animations
+        for(int i=0; i<explotions.size();i++){
+            Animation anim= explotions.get(i);
+            anim.update();
+            if(!anim.isRunning()){
+                explotions.remove(i);
+            }
+        }
+        
         //MAS OLEADAS
         for(int i=0; i<movingObjects.size();i++){
             if(movingObjects.get(i) instanceof Meteor){
@@ -147,6 +158,16 @@ public class GameState {
         
     }
     
+    //Agregando animaciones al arreglo explotions 
+    public void playExplosion(Vector2D position){
+        explotions.add(new Animation(
+                Assets.exp, 
+                50, 
+                position.subtracc(new Vector2D(Assets.exp[0].getWidth()/2, Assets.exp[0].getWidth()/2))));
+    
+    }
+    
+    
     public void draw(Graphics g){
         
         Graphics2D g2d = (Graphics2D)g;
@@ -154,7 +175,12 @@ public class GameState {
         for(int i=0; i<movingObjects.size();i++){
             movingObjects.get(i).draw(g);
         }
-
+        
+        for(int i=0; i<explotions.size();i++){
+            Animation anim= explotions.get(i);
+            g2d.drawImage(anim.getCurrentFrame(), (int)anim.getPosition().getX(), (int)anim.getPosition().getY() , null);
+        }
+        
     }
 
     public ArrayList<MovingObject> getMovingObjects() {

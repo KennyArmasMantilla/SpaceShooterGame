@@ -5,10 +5,13 @@
         <group>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/graphics/Assets.java</file>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/Meteor.java</file>
+            <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/MovingObject.java</file>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/Size.java</file>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/Player.java</file>
+            <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/math/Vector2D.java</file>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/Constants.java</file>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/GameObject.java</file>
+            <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/gameObjects/Laser.java</file>
             <file>file:/D:/Kenny/GitHub/SpaceShooterGame/src/states/GameState.java</file>
         </group>
     </open-files>
