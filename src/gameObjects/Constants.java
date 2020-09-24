@@ -26,5 +26,8 @@ public class Constants {
     //PROPIEDADES DE METEORO
     public static final double METEOR_VEL = 2.0;
     
+    //PROPIEDADES UFO
+    public static final int NODE_RADIUS =160;
+    
     
 }
