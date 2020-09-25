@@ -30,4 +30,5 @@ public class Constants {
     public static final int NODE_RADIUS =160;
     public static final double UFO_MASS=60;
     public static final int UFO_MAX_VEL = 3;
+    public static long UFO_FIRE_RATE = 1000;
 }
