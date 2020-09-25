@@ -1,5 +1,6 @@
 package gameObjects;
 
+import graphics.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,12 +28,17 @@ public class Ufo extends MovingObject{
     //Booleando para saber si acabo de recorrer el camino
     private boolean following;
     
+    //
+    private Chronometer fireRate;
+    
     public Ufo(Vector2D position, Vector2D velocity, double maxVel, BufferedImage texture,
             ArrayList<Vector2D> path ,GameState gameState) {
         super(position, velocity, maxVel, texture, gameState);
         this.path=path;
         index=0;
         following=true;
+        fireRate= new Chronometer();
+        fireRate.run(Constants.UFO_FIRE_RATE);
         
     }
 
@@ -91,9 +97,35 @@ public class Ufo extends MovingObject{
                 || position.getX() < 0 || position.getY() < 0){
             Destroy();
         }
+        //SHOOT
+        if(!fireRate.isRunning()){
+            Vector2D toPlayer = gameState.getPlayer().getCenter().subtracc(getCenter());
+            
+            toPlayer = toPlayer.normalize();
+            
+            double currentAngle = toPlayer.getAngle();
+            
+            double newAngle = Math.random()*(Math.PI)-Math.PI/2 + currentAngle;
+            
+            toPlayer=toPlayer.setDirection(newAngle);
+            
+            Laser laser = new Laser( 
+                    getCenter().add(toPlayer.scale(width)),
+                    toPlayer,
+                    Constants.LASER_VEL,
+                    newAngle + Math.PI/2,
+                    Assets.laserGreen, gameState);
+            //Lo agregos en el arreglo en posicion  para que se dibujo primero
+            gameState.getMovingObjects().add(0,laser);
+            
+            //Correr de nuevoo el cronometro
+            fireRate.run(Constants.UFO_FIRE_RATE);
+            
+        }
         
         angle+=0.05;
         collidesWith();
+        fireRate.update();
     }
 
     @Override

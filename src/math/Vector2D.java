@@ -73,6 +73,12 @@ public class Vector2D {
         return new Vector2D(x-v.getX(), y- v.getY());
     }
 
+    //Devuelve el angulo en el que se encuentra el vector
+    public double getAngle(){
+        return Math.asin(y/getMagnitud());
+    }
+    
+    
     
     public Vector2D(int i, int i0, BufferedImage player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

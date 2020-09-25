@@ -234,6 +234,10 @@ public class GameState {
         this.movingObjects = movingObjects;
     }
     
+    public Player getPlayer(){
+        return player;
+    }
+    
     
     
     
