@@ -1,6 +1,9 @@
 package gameObjects;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import math.Vector2D;
@@ -40,9 +43,15 @@ public class Ufo extends MovingObject{
         double distaceToNode = currentNode.subtracc(getCenter()).getMagnitud();
         //preguntar si la distancia al nodo es menor que el radio
         if(distaceToNode < Constants.NODE_RADIUS){
-        
+            //cambiamos al siguiente nodo
+            index++;
+            //si el indice llego al final
+            if(index >=path.size()){
+                following=false;
+            }
+            
         }
-        
+        return seekForce(currentNode);
     }
     
     
@@ -59,14 +68,51 @@ public class Ufo extends MovingObject{
     
     @Override
     public void update() {
-
-
+        Vector2D pathFollowing;
+        //Si seguimos el camino
+        if(following){
+            pathFollowing = pathFollowing();
+        }
+        //de lo contrario acabamos el camino
+        else
+        {
+            pathFollowing = new Vector2D();
+        }
+        //aceleracion
+        pathFollowing = pathFollowing.scale(1/Constants.UFO_MASS);
+     
+        velocity = velocity.add(pathFollowing);
+        
+        velocity = velocity.limit(maxVel);
+        
+        position = position.add(velocity);
+        
+        if(position.getX() > Constants.WIDTH || position.getY() > Constants.HEIGHT
+                || position.getX() < 0 || position.getY() < 0){
+            Destroy();
+        }
+        
+        angle+=0.05;
+        collidesWith();
     }
 
     @Override
     public void draw(Graphics g) {
-
-
+        
+        Graphics2D g2d = (Graphics2D)g;
+        
+        at=AffineTransform.getTranslateInstance(position.getX(), position.getY());
+        
+        at.rotate(angle,width/2, height/2);
+        
+        g2d.drawImage(texture, at, null);
+        
+        
+        //para ver los nodos del camino
+        g.setColor(Color.red);
+        for(int i = 0; i<path.size(); i++){
+            g.drawRect((int)path.get(i).getX(), (int)path.get(i).getY(), 5, 5);
+        }
     }
     
 }

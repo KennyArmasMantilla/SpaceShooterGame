@@ -46,7 +46,7 @@ public class Vector2D {
     }   
     
     //movimiento
-    public void limit(double value){
+    public Vector2D limit(double value){
     
         if(x>value)
             x=value;
@@ -56,6 +56,8 @@ public class Vector2D {
             y=value;
         if(y< -value)
             y= -value;
+        
+        return new Vector2D(x,y);
     }
     
     //FRENADO O DESACELERACION

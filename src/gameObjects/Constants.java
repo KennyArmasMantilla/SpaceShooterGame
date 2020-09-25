@@ -28,6 +28,6 @@ public class Constants {
     
     //PROPIEDADES UFO
     public static final int NODE_RADIUS =160;
-    
-    
+    public static final double UFO_MASS=60;
+    public static final int UFO_MAX_VEL = 3;
 }

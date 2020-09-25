@@ -1,10 +1,12 @@
 package states;
 
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import gameObjects.Constants;
 import gameObjects.Meteor;
 import gameObjects.MovingObject;
 import gameObjects.Player;
 import gameObjects.Size;
+import gameObjects.Ufo;
 import graphics.Animation;
 import graphics.Assets;
 import java.awt.Graphics;
@@ -115,18 +117,19 @@ public class GameState {
                     this,
                     Size.BIG_BROWN));
                     
-            BufferedImage texture2 = Assets.bigsGrey[(int)(Math.random()*Assets.bigsBrown.length)];
+            /*BufferedImage texture2 = Assets.bigsGrey[(int)(Math.random()*Assets.bigsBrown.length)];
                     movingObjects.add(new Meteor(
                     new Vector2D(x,y),
                     new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
                     Constants.METEOR_VEL*Math.random()+1,
                     texture2,
                     this,
-                    Size.BIG_GRAY));
+                    Size.BIG_GRAY));*/
                     
             }
 
-        meteors++;        
+        meteors++;   
+        spawnUfo();
 
         
     }
@@ -166,6 +169,46 @@ public class GameState {
                 position.subtracc(new Vector2D(Assets.exp[0].getWidth()/2, Assets.exp[0].getWidth()/2))));
     
     }
+    
+    
+    //nos permite crear el UFO
+    private void spawnUfo(){
+    
+        int rand = (int)(Math.random()*2);
+        
+        double x = rand == 0 ? (Math.random()*Constants.WIDTH): 0;
+        double y = rand == 0 ? 0 : (Math.random()*Constants.WIDTH);
+        //Camino para los UFO
+        ArrayList<Vector2D> path = new ArrayList<Vector2D>();
+        
+        double posX, posY;
+        
+        posX = Math.random()*Constants.WIDTH/2;
+        posY = Math.random()*Constants.HEIGHT/2;
+        path.add(new Vector2D(posX, posY));
+        
+        posX = Math.random()*(Constants.WIDTH/2) + Constants.WIDTH/2;
+        posY = Math.random()*(Constants.WIDTH/2);
+        path.add(new Vector2D(posX, posY));
+        
+        posX = Math.random()*Constants.WIDTH/2;
+        posY = Math.random()*(Constants.HEIGHT/2) + Constants.HEIGHT/2;
+        path.add(new Vector2D(posX, posY));
+        
+        posX = Math.random()*(Constants.WIDTH/2) + Constants.WIDTH/2;
+        posY = Math.random()*(Constants.HEIGHT/2) + Constants.HEIGHT/2;
+        path.add(new Vector2D(posX, posY));
+        
+        movingObjects.add(new Ufo(
+                new Vector2D(x,y),
+                new Vector2D(),
+                Constants.UFO_MAX_VEL,
+                Assets.ufo,
+                path,
+                this));
+        
+    }
+    
     
     
     public void draw(Graphics g){

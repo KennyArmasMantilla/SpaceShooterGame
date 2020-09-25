@@ -94,24 +94,24 @@ public class Player extends MovingObject{
 
         //Para que no Salga del cuadro de dibujo.
         if(position.getX() > 743.1) {
-            System.out.println("Posicion X: "+position.getX());
+            //System.out.println("Posicion X: "+position.getX());
             position.setX(743);
         }
         else 
         {
             if(position.getX() < 7){
-                System.out.println("Posicion X: "+position.getX());
+                //System.out.println("Posicion X: "+position.getX());
                 position.setX(8);
             }
             else{
                 if (position.getY()>525.1) {
-                    System.out.println("Posicion Y: "+position.getY());
+                    //System.out.println("Posicion Y: "+position.getY());
                     position.setY(525);
                 }
                 else
                 {
                     if (position.getY()<10) {
-                        System.out.println("Posicion Y: "+position.getY());
+                        //System.out.println("Posicion Y: "+position.getY());
                         position.setY(11);
                     }
                     else{
@@ -125,10 +125,10 @@ public class Player extends MovingObject{
         collidesWith();
         
         
-        System.out.println("Ancho de la ventana: "+742);
-        System.out.println("Posicion X:"+position.getX());
-        System.out.println("Posicion Y:"+position.getY());
-        System.out.println("Angulo: "+angle);             
+        //System.out.println("Ancho de la ventana: "+742);
+        //System.out.println("Posicion X:"+position.getX());
+        //System.out.println("Posicion Y:"+position.getY());
+        //System.out.println("Angulo: "+angle);             
             
     }
 
