@@ -43,17 +43,14 @@ public class Assets {
     public static BufferedImage[] enemiesRed = new BufferedImage[5];
     
     //------------UFO-------------------------------------
-    public static BufferedImage ufo;
+    public static BufferedImage[] ufo = new BufferedImage[4];
     
     
     
     public static void init(){
         //Nave
         player = Loader.ImageLoader("/ships/player.png");
-        
-        //ufo
-        ufo = Loader.ImageLoader("/ships/ufoBlue.png");
-        
+                
         //Propulsion
         speed=Loader.ImageLoader("/effects/fire08.png");
         
@@ -121,7 +118,9 @@ public class Assets {
        }
         
        //UFO
-       
+       for(int i = 0; i<ufo.length; i++){
+           ufo[i]= Loader.ImageLoader("/UFO/ufo"+(i+1)+".png");
+       }
         
         
     }

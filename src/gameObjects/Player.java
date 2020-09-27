@@ -149,8 +149,6 @@ public class Player extends MovingObject{
         }
         
         
-        
-        
         at=AffineTransform.getTranslateInstance(position.getX(), position.getY());
         
         at.rotate(angle,width/2, height/2);

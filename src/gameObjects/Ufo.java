@@ -28,8 +28,12 @@ public class Ufo extends MovingObject{
     //Booleando para saber si acabo de recorrer el camino
     private boolean following;
     
-    //
+    //disparo
     private Chronometer fireRate;
+    
+    //Angulo de la nave
+    private double angulo;
+    
     
     public Ufo(Vector2D position, Vector2D velocity, double maxVel, BufferedImage texture,
             ArrayList<Vector2D> path ,GameState gameState) {
@@ -39,7 +43,7 @@ public class Ufo extends MovingObject{
         following=true;
         fireRate= new Chronometer();
         fireRate.run(Constants.UFO_FIRE_RATE);
-        
+        angulo=0;
     }
 
     //gestionar todo el camino
@@ -55,7 +59,6 @@ public class Ufo extends MovingObject{
             if(index >=path.size()){
                 following=false;
             }
-            
         }
         return seekForce(currentNode);
     }
@@ -120,10 +123,10 @@ public class Ufo extends MovingObject{
             
             //Correr de nuevoo el cronometro
             fireRate.run(Constants.UFO_FIRE_RATE);
-            
+//            angulo=newAngle;
         }
-        
-        angle+=0.05;
+        //angle=angulo;
+        //angle+=0.05;
         collidesWith();
         fireRate.update();
     }

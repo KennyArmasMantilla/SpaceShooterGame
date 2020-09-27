@@ -61,9 +61,9 @@ public class GameState {
                 newSize = Size.SMALL_BROWN;
                 break;
             
-            case SMALL_BROWN:
+            /*case SMALL_BROWN:
                 newSize = Size.TINY_BROWN;
-                break;
+                break;*/
             
             case BIG_GRAY:
                 newSize = Size.MED_GRAY;
@@ -203,7 +203,7 @@ public class GameState {
                 new Vector2D(x,y),
                 new Vector2D(),
                 Constants.UFO_MAX_VEL,
-                Assets.ufo,
+                Assets.ufo[(int)(Math.random()*Assets.ufo.length)],
                 path,
                 this));
         
