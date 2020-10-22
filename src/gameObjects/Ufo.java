@@ -1,5 +1,6 @@
 package gameObjects;
 
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import graphics.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -107,16 +108,22 @@ public class Ufo extends MovingObject{
             toPlayer = toPlayer.normalize();
             
             double currentAngle = toPlayer.getAngle();
+            //Disparo directo
+            //double newAngle = currentAngle;
             
-            double newAngle = Math.random()*(Math.PI)-Math.PI/2 + currentAngle;
+            currentAngle += Math.random()*Constants.UFO_ANGLE_RANGE - Constants.UFO_ANGLE_RANGE / 2;
             
-            toPlayer=toPlayer.setDirection(newAngle);
+            if(toPlayer.getX()<0){
+                currentAngle = -currentAngle + Math.PI;
+            }
+            
+            toPlayer=toPlayer.setDirection(currentAngle);
             
             Laser laser = new Laser( 
                     getCenter().add(toPlayer.scale(width)),
                     toPlayer,
                     Constants.LASER_VEL,
-                    newAngle + Math.PI/2,
+                    currentAngle + Math.PI/2,
                     Assets.laserGreen, gameState);
             //Lo agregos en el arreglo en posicion  para que se dibujo primero
             gameState.getMovingObjects().add(0,laser);
@@ -126,7 +133,7 @@ public class Ufo extends MovingObject{
 //            angulo=newAngle;
         }
         //angle=angulo;
-        //angle+=0.05;
+        angle+=0.05;
         collidesWith();
         fireRate.update();
     }
@@ -148,6 +155,7 @@ public class Ufo extends MovingObject{
         for(int i = 0; i<path.size(); i++){
             g.drawRect((int)path.get(i).getX(), (int)path.get(i).getY(), 5, 5);
         }
+       
     }
     
 }

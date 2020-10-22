@@ -73,7 +73,7 @@ public class Vector2D {
         return new Vector2D(x-v.getX(), y- v.getY());
     }
 
-    //Devuelve el angulo en el que se encuentra el vector
+    //Devuelve el angulo en el que se encuentra el player
     public double getAngle(){
         return Math.asin(y/getMagnitud());
     }

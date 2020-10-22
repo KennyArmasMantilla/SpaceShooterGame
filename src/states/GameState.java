@@ -94,8 +94,6 @@ public class GameState {
         
         }
         
-        
-        
     }
     
 
@@ -197,6 +195,10 @@ public class GameState {
         
         posX = Math.random()*(Constants.WIDTH/2) + Constants.WIDTH/2;
         posY = Math.random()*(Constants.HEIGHT/2) + Constants.HEIGHT/2;
+        path.add(new Vector2D(posX, posY));
+        
+        posX = Math.random()*Constants.WIDTH/2;
+        posY = Math.random()*Constants.HEIGHT/2;
         path.add(new Vector2D(posX, posY));
         
         movingObjects.add(new Ufo(
