@@ -45,6 +45,13 @@ public class Assets {
     //------------UFO-------------------------------------
     public static BufferedImage[] ufo = new BufferedImage[4];
     
+    //------------HUD-------------------------------------
+    //Numbers
+    public static BufferedImage[] numbers = new BufferedImage[10];
+    //life
+    public static BufferedImage life;
+    //x
+    public static BufferedImage X;
     
     
     public static void init(){
@@ -122,6 +129,17 @@ public class Assets {
            ufo[i]= Loader.ImageLoader("/UFO/ufo"+(i+1)+".png");
        }
         
-        
+       //---------------------HUD----------------
+       //Numbers for HUD
+       for(int i = 0; i<numbers.length; i++){
+            numbers[i]= Loader.ImageLoader("/HUD/"+(i+0)+".png");
+       }
+       
+       //Seta
+       life=Loader.ImageLoader("/HUD/seta.png");
+       
+       //X
+       X=Loader.ImageLoader("/HUD/10.png");
+       
     }
 }

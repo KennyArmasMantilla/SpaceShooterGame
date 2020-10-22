@@ -33,6 +33,9 @@ public class GameState {
     //Animation
     private ArrayList<Animation> explotions = new ArrayList<Animation>();
     
+    //Score
+    private int score=0;
+    
     
     public GameState(){
         player = new Player(new Vector2D(390,500),new Vector2D(), 5 ,Assets.player, this);
@@ -42,6 +45,13 @@ public class GameState {
         startWave();
     
     }
+    
+    public void addScore(int value){
+        score +=value;
+        System.out.println(score);
+    
+    }
+    
     
     //Dividir los Meteoros
     public void divideMeteor(Meteor meteor){
@@ -212,6 +222,7 @@ public class GameState {
     }
     
     
+    //DIBUJO------------
     
     public void draw(Graphics g){
         
@@ -226,8 +237,30 @@ public class GameState {
             g2d.drawImage(anim.getCurrentFrame(), (int)anim.getPosition().getX(), (int)anim.getPosition().getY() , null);
         }
         
+        drawScore(g);
+        
     }
+    
+    //Dibujando Score
+    private void drawScore(Graphics g){
+        //Posicion donde estara el puntaje
+        Vector2D pos= new Vector2D(700,25);
 
+        //Sabemos cuantos digitos hay
+        String scoreToString = Integer.toString(score);
+        
+        //
+        for(int i = 0; i < scoreToString.length(); i++){
+            
+            g.drawImage(Assets.numbers[Integer.parseInt(scoreToString.substring(i,i+1))],
+                    (int)pos.getX(), (int)pos.getY(), null);
+            pos.setX(pos.getX()+ 20);
+        }
+        
+    
+    }
+    
+    
     public ArrayList<MovingObject> getMovingObjects() {
         return movingObjects;
     }

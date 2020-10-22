@@ -134,10 +134,18 @@ public class Ufo extends MovingObject{
         }
         //angle=angulo;
         angle+=0.05;
+        
         collidesWith();
         fireRate.update();
     }
-
+    //Para sobreescribir 
+    @Override
+    public void Destroy(){
+        gameState.addScore(Constants.UFO_SCORE);
+        super.Destroy();
+    }
+    
+    
     @Override
     public void draw(Graphics g) {
         
