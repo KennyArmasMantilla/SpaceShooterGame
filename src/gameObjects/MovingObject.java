@@ -67,6 +67,15 @@ public abstract class MovingObject extends GameObject{
     //no va a ser el caso que siempre se destruya
     //que debe hacer en caso de los objetos colisionen
     private void objectCollision(MovingObject a, MovingObject b){
+        //Preguntamos si un objeto es el el jugador
+        if(a instanceof Player && ((Player)a).isSpawning()){
+            return;
+        }
+        
+        if(b instanceof Player && ((Player)b).isSpawning()){
+            return;
+        }
+        
         //siempre y cuando ninguno sea meteoro lo eliminamos
         if(!(a instanceof Meteor && b instanceof Meteor)){
             //para las explosionces

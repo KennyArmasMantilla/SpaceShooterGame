@@ -19,6 +19,9 @@ public class Constants {
     public static final double DELTAANGLE=0.1;
     public static final double ACC=0.08;//Representa cuanto queremos que acelere la nave
     public static final double PLAYER_MAX_VEL=7.0;
+    public static final long FLICKER_TIME = 200;//Tiempo de parpadeo
+    public static final long SPAWNING_TIME = 3000;//Tiempo de reaparecer. 
+    
     
     //PROPIEDASDES DEL LASER
     public static final double LASER_VEL=15.0;

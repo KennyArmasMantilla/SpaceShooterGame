@@ -22,14 +22,19 @@ public class Player extends MovingObject{
     private Vector2D heading; //Representa hacia donde esta mirando la nave
     private Vector2D acceleration;//Acelerar la nave.... Viene a ser el acmbio con respecto al tiempo.
     
-    
-    
-    
     //effects
     private boolean accelerating = false;
     
     //Velocidad de las balas
     private Chronometer fireRate;
+    
+    //Respawn
+    private boolean spawning, visible;//visible, para saber cuando dibujar o no dibujar
+    
+    //para cronometrar el tiempo entre visible o no visible. 
+    private Chronometer spawnTime, flickerTime;//flicker, parpadero
+    
+    
     
     
     public Player(Vector2D position, Vector2D velocity,double maxVel, BufferedImage texture, GameState gameState) {
@@ -38,14 +43,30 @@ public class Player extends MovingObject{
         heading= new Vector2D(0,1);
         acceleration = new Vector2D();
         fireRate= new Chronometer();
+        spawnTime = new Chronometer();
+        flickerTime = new Chronometer();
     }
 
    
     @Override
     public void update() {    
         
+        if(!spawnTime.isRunning()){
+            spawning = false;
+            visible=true;
+        }
+        //Si estamos en el periodo de spawning
+        if(spawning){
+            
+            if(!flickerTime.isRunning()){
+                flickerTime.run(Constants.FLICKER_TIME);
+                visible= !visible;
+            }
+        }
         
-        if(KeyBoard.SHOOT && !fireRate.isRunning()){
+        
+        //ultima condicion, si esta parpadeando no puede disparar
+        if(KeyBoard.SHOOT && !fireRate.isRunning() && !spawning){
             gameState.getMovingObjects().add(0,new Laser
                 (getCenter().add(heading.scale(width)),
                         heading, 10, angle, Assets.laserRed, gameState));
@@ -63,7 +84,7 @@ public class Player extends MovingObject{
         if(KeyBoard.UP){
             acceleration = heading.scale(Constants.ACC);
             accelerating=true;
-            System.out.println("aceleracion: "+acceleration);
+            //System.out.println("aceleracion: "+acceleration);
         }else{
             if(velocity.getMagnitud() !=0)
             {
@@ -73,7 +94,7 @@ public class Player extends MovingObject{
         }
         
         //lETRAS
-/*        if(KeyBoard.D){
+        /*if(KeyBoard.D){
             position.setX(position.getX()+2);
         }
         if(KeyBoard.A){
@@ -122,6 +143,8 @@ public class Player extends MovingObject{
         }
        
         fireRate.update();
+        spawnTime.update();
+        flickerTime.update();
         collidesWith();
         
         
@@ -131,9 +154,36 @@ public class Player extends MovingObject{
         //System.out.println("Angulo: "+angle);             
             
     }
-
+    
+    //
+    //metodo para el spawning
+    @Override
+    public  void Destroy(){
+        spawning = true;
+        spawnTime.run(Constants.SPAWNING_TIME);
+        resetValues();
+        
+        //restLive
+        gameState.restLive(1);
+    }
+    
+    //Reseteamos los valores una vez 
+    private void resetValues(){
+        angle =0;
+        velocity = new Vector2D();
+        position = new Vector2D(390,500);
+    }
+    
+    
+    
     @Override
     public void draw(Graphics g) {
+        //para el parpadeo
+        if(!visible)
+            return;
+        
+        
+        
         Graphics2D g2d=(Graphics2D)g;
         //effects
         AffineTransform at1= AffineTransform.getTranslateInstance(position.getX()+ width/2 + 5, position.getY()+height/2 + 10);
@@ -156,5 +206,11 @@ public class Player extends MovingObject{
         g2d.drawImage(texture, at, null);
         
     }
+        
+    //para saber si esta en el periodo de spawning 
+    public boolean isSpawning(){
+        return spawning;
+    }
+    
         
 }

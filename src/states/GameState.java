@@ -40,7 +40,7 @@ public class GameState {
     private int lives =3;
     
     public GameState(){
-        player = new Player(new Vector2D(390,500),new Vector2D(), 5 ,Assets.player, this);
+        player = new Player(new Vector2D(390,500),new Vector2D(), Constants.PLAYER_MAX_VEL,Assets.player, this);
         movingObjects.add(player);
     
         meteors=1;
@@ -53,6 +53,11 @@ public class GameState {
         score +=value;
         System.out.println(score);
    
+    }
+    //Resta de vidas
+    public void restLive(int value){
+        lives-=value;
+        
     }
     
     
@@ -86,9 +91,9 @@ public class GameState {
                 newSize = Size.SMALL_GRAY;
                 break;
             
-            case SMALL_GRAY:
+            /*case SMALL_GRAY:
                 newSize = Size.TINY_GRAY;
-                break;
+                break;*/
                 
             default:
                 return;
@@ -291,9 +296,7 @@ public class GameState {
         
     }
     
-    
-    
-    
+ 
     public ArrayList<MovingObject> getMovingObjects() {
         return movingObjects;
     }
