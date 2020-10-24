@@ -36,6 +36,8 @@ public class GameState {
     //Score
     private int score=0;
     
+    //Lives
+    private int lives =3;
     
     public GameState(){
         player = new Player(new Vector2D(390,500),new Vector2D(), 5 ,Assets.player, this);
@@ -46,10 +48,11 @@ public class GameState {
     
     }
     
+    //Suma los puntajes
     public void addScore(int value){
         score +=value;
         System.out.println(score);
-    
+   
     }
     
     
@@ -116,23 +119,23 @@ public class GameState {
             x= i%2==0 ? Math.random()*Constants.WIDTH : 0;
             y= i%2==0 ? 0: Math.random()*Constants.HEIGHT;            
                 
-            BufferedImage texture = Assets.bigsBrown[(int)(Math.random()*Assets.bigsBrown.length)];
+            /*BufferedImage texture = Assets.bigsBrown[(int)(Math.random()*Assets.bigsBrown.length)];
                     movingObjects.add(new Meteor(
                     new Vector2D(x,y),
                     new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
                     Constants.METEOR_VEL*Math.random()+1,
                     texture,
                     this,
-                    Size.BIG_BROWN));
+                    Size.BIG_BROWN));*/
                     
-            /*BufferedImage texture2 = Assets.bigsGrey[(int)(Math.random()*Assets.bigsBrown.length)];
+            BufferedImage texture2 = Assets.bigsGrey[(int)(Math.random()*Assets.bigsBrown.length)];
                     movingObjects.add(new Meteor(
                     new Vector2D(x,y),
                     new Vector2D(0,1).setDirection(Math.random()*Math.PI*2),
                     Constants.METEOR_VEL*Math.random()+1,
                     texture2,
                     this,
-                    Size.BIG_GRAY));*/
+                    Size.BIG_GRAY));
                     
             }
 
@@ -222,7 +225,7 @@ public class GameState {
     }
     
     
-    //DIBUJO------------
+    //-------------DIBUJO------------
     
     public void draw(Graphics g){
         
@@ -238,6 +241,7 @@ public class GameState {
         }
         
         drawScore(g);
+        drawLives(g);
         
     }
     
@@ -256,9 +260,38 @@ public class GameState {
                     (int)pos.getX(), (int)pos.getY(), null);
             pos.setX(pos.getX()+ 20);
         }
-        
-    
     }
+    
+    //Dibujando la vida
+    private void drawLives(Graphics g){
+        //Posicion donde estaran las vidas.
+        Vector2D livePosition = new Vector2D(25, 25);
+        //Dibujamos la Seta
+        g.drawImage(Assets.life2, (int)livePosition.getX(), (int)livePosition.getY(), null);
+        //Diujamos el X
+        g.drawImage(Assets.X, (int)livePosition.getX()+35, (int)livePosition.getY()+8, null);
+        
+        String livesToString = Integer.toString(lives);
+        
+        Vector2D pos = new  Vector2D(livePosition.getX(),livePosition.getY());
+        
+        for(int i = 0; i< livesToString.length(); i++){
+        
+            int number = Integer.parseInt(livesToString.substring(i,i+1));
+            
+            if(number<0)
+                break;
+            
+            g.drawImage(Assets.numbers[number],
+                    (int)pos.getX()+60,
+                    (int)pos.getY()+8, null);
+            
+        }
+        
+        
+    }
+    
+    
     
     
     public ArrayList<MovingObject> getMovingObjects() {

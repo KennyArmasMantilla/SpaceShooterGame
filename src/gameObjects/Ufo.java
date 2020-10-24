@@ -139,8 +139,10 @@ public class Ufo extends MovingObject{
         fireRate.update();
     }
     //Para sobreescribir 
+    
     @Override
     public void Destroy(){
+        //sumamos puntaje del ovni cuando esta destruido
         gameState.addScore(Constants.UFO_SCORE);
         super.Destroy();
     }

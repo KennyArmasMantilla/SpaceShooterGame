@@ -49,7 +49,8 @@ public class Assets {
     //Numbers
     public static BufferedImage[] numbers = new BufferedImage[10];
     //life
-    public static BufferedImage life;
+    public static BufferedImage life1;
+    public static BufferedImage life2;
     //x
     public static BufferedImage X;
     
@@ -135,8 +136,11 @@ public class Assets {
             numbers[i]= Loader.ImageLoader("/HUD/"+(i+0)+".png");
        }
        
-       //Seta
-       life=Loader.ImageLoader("/HUD/seta.png");
+       //Seta1
+       life1=Loader.ImageLoader("/HUD/life.png");
+       
+       //seta2
+       life2=Loader.ImageLoader("/HUD/seta.png");
        
        //X
        X=Loader.ImageLoader("/HUD/10.png");
