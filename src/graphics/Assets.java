@@ -1,6 +1,7 @@
 //Recursos externos
 package graphics;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 /**
@@ -54,6 +55,10 @@ public class Assets {
     //x
     public static BufferedImage X;
     
+    //FONTS
+    public static Font fontBig;
+    
+    public static Font fontMed;
     
     public static void init(){
         //Nave
@@ -66,6 +71,10 @@ public class Assets {
         laserBlue=Loader.ImageLoader("/lasers/laserBlue05.png");
         laserGreen=Loader.ImageLoader("/lasers/laserGreen05.png");
         laserRed=Loader.ImageLoader("/lasers/laserRed03.png");
+        
+        //Font
+        fontBig = Loader.loadFont("/fonts/kenvector_future.ttf", 42);
+        fontMed = Loader.loadFont("/fonts/kenvector_future.ttf", 20);
         
         //------------Meteoros----------------
         //Brown

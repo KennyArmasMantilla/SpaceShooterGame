@@ -1,6 +1,8 @@
 package graphics;
 //Cargar Imagenes o Cualquier otro uso externo como videos audiso..
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -15,6 +17,7 @@ import javax.imageio.ImageIO;
 
 public class Loader {
 
+    //Cargando la imagen
     public static BufferedImage ImageLoader(String paht){
         
         try {
@@ -24,4 +27,16 @@ public class Loader {
         }
         return null;
     }   
+    
+    //Cargando la fuente
+    public static Font loadFont(String path, int size){
+        
+        try {
+            return Font.createFont(Font.TRUETYPE_FONT, Loader.class.getResourceAsStream(path)).deriveFont(Font.PLAIN,size);
+        } catch (FontFormatException | IOException e) {
+        
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

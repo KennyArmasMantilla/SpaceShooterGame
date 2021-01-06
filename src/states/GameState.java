@@ -2,6 +2,7 @@ package states;
 
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 import gameObjects.Constants;
+import gameObjects.Message;
 import gameObjects.Meteor;
 import gameObjects.MovingObject;
 import gameObjects.Player;
@@ -9,6 +10,8 @@ import gameObjects.Size;
 import gameObjects.Ufo;
 import graphics.Animation;
 import graphics.Assets;
+import graphics.Text;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -27,17 +30,25 @@ public class GameState {
     private Player player;
     //arrego de objeto movible que se va a encargar de actualizar y dibujar todos los objetos que se muevan en el juego
     private ArrayList<MovingObject> movingObjects = new ArrayList<MovingObject>();
-    //Meteoros
-    private int meteors;
-    
     //Animation
     private ArrayList<Animation> explotions = new ArrayList<Animation>();
+
+    //Mensaje- para eliminar
+    private ArrayList<Message> messages = new ArrayList<Message>();
+    private Message mensaje;
     
     //Score
     private int score=0;
     
     //Lives
     private int lives =3;
+    
+    //Meteoros
+    private int meteors;
+    
+    //Cantidad de oleadas
+    private int waves = 1;
+    
     
     public GameState(){
         player = new Player(new Vector2D(390,500),new Vector2D(), Constants.PLAYER_MAX_VEL,Assets.player, this);
@@ -49,10 +60,9 @@ public class GameState {
     }
     
     //Suma los puntajes
-    public void addScore(int value){
+    public void addScore(int value, Vector2D position){
         score +=value;
-        System.out.println(score);
-   
+        messages.add(new Message(position, true, "+"+value+" score", Color.WHITE, false, Assets.fontMed, this));
     }
     //Resta de vidas
     public void restLive(int value){
@@ -118,6 +128,10 @@ public class GameState {
     
     //Para iniciar oleadas de meteoros
     private void startWave(){
+        
+        
+        messages.add(new Message(new Vector2D(Constants.WIDTH/2, Constants.HEIGHT/2), false, "A pelear puto "+ waves, Color.CYAN, true, Assets.fontBig, this));
+        
         double x,y;
         for(int i = 0; i<meteors; i++){
             //posiciones aleatorios
@@ -235,7 +249,15 @@ public class GameState {
     public void draw(Graphics g){
         
         Graphics2D g2d = (Graphics2D)g;
+        
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        
+        //Messages
+        for(int i=0; i<messages.size();i++){
+            System.out.println("tamañano de mensaje: "+messages.size());
+            messages.get(i).draw(g2d);
+        }
+        
         for(int i=0; i<movingObjects.size();i++){
             movingObjects.get(i).draw(g);
         }
@@ -247,6 +269,9 @@ public class GameState {
         
         drawScore(g);
         drawLives(g);
+        //Text.drawText(g, "WAVES "+waves, new Vector2D(Constants.WIDTH/2, Constants.HEIGHT/2), true, Color.CYAN, Assets.fontBig);
+        
+        
         
     }
     
@@ -300,7 +325,11 @@ public class GameState {
     public ArrayList<MovingObject> getMovingObjects() {
         return movingObjects;
     }
-
+    
+    public ArrayList<Message> getMessages(){
+        return messages;
+    }
+    
     public void setMovingObjects(ArrayList<MovingObject> movingObjects) {
         this.movingObjects = movingObjects;
     }
@@ -309,7 +338,9 @@ public class GameState {
         return player;
     }
     
-    
+    public Message getMessage(){
+        return mensaje;
+    }
     
     
 }
